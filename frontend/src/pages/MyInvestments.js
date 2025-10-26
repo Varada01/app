@@ -34,7 +34,7 @@ function MyInvestments({ user }) {
         <div className="max-w-7xl mx-auto flex items-center gap-4">
           <Button data-testid="back-btn" variant="ghost" onClick={() => navigate('/dashboard')} className="flex items-center gap-2">
             <ArrowLeft size={18} />
-            Back
+            Dashboard
           </Button>
           <span className="text-2xl font-bold gradient-text">My Investments</span>
         </div>
