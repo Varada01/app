@@ -1,0 +1,42 @@
+# Docker Compose for local development
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: app-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: channelfunding
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URL=mongodb://admin:password123@mongodb:27017/
+      - DB_NAME=channelfunding
+      - JWT_SECRET_KEY=your-secret-key-change-in-production
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:8000
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+
+networks:
+  app-network:
+    driver: bridge
