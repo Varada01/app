@@ -131,12 +131,36 @@ function ChannelDetail({ user, setUser }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
       <nav className="navbar px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center gap-4">
-          <Button data-testid="back-to-dashboard" variant="ghost" onClick={() => navigate('/dashboard')} className="flex items-center gap-2">
-            <ArrowLeft size={18} />
-            Back
-          </Button>
-          <span className="text-2xl font-bold gradient-text">Channel Details</span>
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <Button data-testid="back-to-dashboard" variant="ghost" onClick={() => navigate('/dashboard')} className="flex items-center gap-2">
+              <ArrowLeft size={18} />
+              Back
+            </Button>
+            <span className="text-2xl font-bold gradient-text">Channel Details</span>
+          </div>
+          <div className="flex items-center gap-4">
+            {user.user_type === 'creator' && (
+              <Button
+                data-testid="my-channels-btn"
+                variant="ghost"
+                onClick={() => navigate('/my-channels')}
+                className="font-medium"
+              >
+                My Channels
+              </Button>
+            )}
+            {user.user_type === 'investor' && (
+              <Button
+                data-testid="my-investments-btn"
+                variant="ghost"
+                onClick={() => navigate('/my-investments')}
+                className="font-medium"
+              >
+                My Investments
+              </Button>
+            )}
+          </div>
         </div>
       </nav>
 
