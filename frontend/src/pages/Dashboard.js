@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { authAxios } from '../App';
 import { toast } from 'sonner';
 import { Button } from '../components/ui/button';
-import { Wallet, TrendingUp, Users, Plus, LogOut } from 'lucide-react';
+import { Wallet, TrendingUp, Users, Plus, LogOut, Zap, Sparkles, ArrowRight } from 'lucide-react';
 
 function Dashboard({ user, setUser }) {
   const navigate = useNavigate();
@@ -33,24 +33,29 @@ function Dashboard({ user, setUser }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen animated-bg">
       {/* Navbar */}
       <nav className="navbar px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <span
-              data-testid="logo"
-              className="text-2xl font-bold gradient-text cursor-pointer"
-              onClick={() => navigate('/dashboard')}
-            >
-              CreatorFund
-            </span>
-            <div className="flex gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl gradient-bg-primary flex items-center justify-center">
+                <Zap className="text-white" size={24} />
+              </div>
+              <span
+                data-testid="logo"
+                className="text-2xl font-bold gradient-text glow-text cursor-pointer"
+                onClick={() => navigate('/dashboard')}
+              >
+                CreatorFund
+              </span>
+            </div>
+            <div className="flex gap-2">
               <Button
                 data-testid="explore-channels-btn"
                 variant="ghost"
                 onClick={() => navigate('/dashboard')}
-                className="font-medium"
+                className="font-medium text-gray-300 hover:text-white animated-underline"
               >
                 Explore
               </Button>
@@ -59,7 +64,7 @@ function Dashboard({ user, setUser }) {
                   data-testid="my-channels-btn"
                   variant="ghost"
                   onClick={() => navigate('/my-channels')}
-                  className="font-medium"
+                  className="font-medium text-gray-300 hover:text-white animated-underline"
                 >
                   My Channels
                 </Button>
@@ -69,7 +74,7 @@ function Dashboard({ user, setUser }) {
                   data-testid="my-investments-btn"
                   variant="ghost"
                   onClick={() => navigate('/my-investments')}
-                  className="font-medium"
+                  className="font-medium text-gray-300 hover:text-white animated-underline"
                 >
                   My Investments
                 </Button>
@@ -78,9 +83,9 @@ function Dashboard({ user, setUser }) {
           </div>
 
           <div className="flex items-center gap-4">
-            <div data-testid="user-balance" className="glass-effect px-4 py-2 rounded-full flex items-center gap-2">
-              <Wallet size={18} className="text-purple-600" />
-              <span className="font-semibold">₹{user.balance?.toLocaleString()}</span>
+            <div data-testid="user-balance" className="glass-effect px-5 py-3 rounded-full flex items-center gap-3">
+              <Wallet size={20} className="text-purple-400" />
+              <span className="font-bold text-white text-lg">₹{user.balance?.toLocaleString()}</span>
             </div>
             <div className="glass-effect px-4 py-2 rounded-full">
               <span className={`badge ${user.user_type === 'creator' ? 'badge-creator' : 'badge-investor'}`}>
@@ -97,7 +102,7 @@ function Dashboard({ user, setUser }) {
                 Create Channel
               </Button>
             )}
-            <Button data-testid="logout-btn" variant="ghost" onClick={handleLogout} className="flex items-center gap-2">
+            <Button data-testid="logout-btn" variant="ghost" onClick={handleLogout} className="flex items-center gap-2 text-gray-400 hover:text-white">
               <LogOut size={18} />
             </Button>
           </div>
@@ -106,11 +111,15 @@ function Dashboard({ user, setUser }) {
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Welcome Section */}
-        <div className="mb-12">
-          <h1 data-testid="dashboard-welcome" className="text-4xl font-bold gradient-text mb-2">
-            Welcome back, {user.name}! 👋
+        <div className="mb-12 fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-effect mb-4">
+            <Sparkles size={18} className="text-purple-400" />
+            <span className="text-sm font-semibold text-gray-300">Welcome back</span>
+          </div>
+          <h1 data-testid="dashboard-welcome" className="text-5xl font-bold gradient-text glow-text mb-3">
+            Hey, {user.name}!
           </h1>
-          <p className="text-gray-600">
+          <p className="text-xl text-gray-300">
             {user.user_type === 'creator'
               ? 'Create channels, collaborate with teams, and grow your creator business.'
               : 'Discover amazing creators and invest in their journey.'}
@@ -118,65 +127,71 @@ function Dashboard({ user, setUser }) {
         </div>
 
         {/* Stats */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <div className="stat-card">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-full gradient-bg-primary flex items-center justify-center">
-                <Wallet className="text-white" size={24} />
+        <div className="grid md:grid-cols-3 gap-6 mb-16">
+          <div className="stat-card hover-lift card-3d">
+            <div className="flex items-center justify-between mb-6">
+              <div className="feature-icon">
+                <Wallet className="text-purple-400" size={32} />
               </div>
             </div>
-            <h3 className="text-2xl font-bold mb-1">₹{user.balance?.toLocaleString()}</h3>
-            <p className="text-gray-600 text-sm">Available Balance</p>
+            <h3 className="text-4xl font-bold mb-2 gradient-text">₹{user.balance?.toLocaleString()}</h3>
+            <p className="text-gray-400 text-sm font-medium">Available Balance</p>
           </div>
 
-          <div className="stat-card">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-full gradient-bg-secondary flex items-center justify-center">
-                <TrendingUp className="text-white" size={24} />
+          <div className="stat-card hover-lift card-3d">
+            <div className="flex items-center justify-between mb-6">
+              <div className="feature-icon">
+                <TrendingUp className="text-pink-400" size={32} />
               </div>
             </div>
-            <h3 className="text-2xl font-bold mb-1">{channels.length}</h3>
-            <p className="text-gray-600 text-sm">Active Channels</p>
+            <h3 className="text-4xl font-bold mb-2 gradient-text">{channels.length}</h3>
+            <p className="text-gray-400 text-sm font-medium">Active Channels</p>
           </div>
 
-          <div className="stat-card">
-            <div className="flex items-center justify-between mb-4">
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #00D4FF 0%, #0099CC 100%)' }}
-              >
-                <Users className="text-white" size={24} />
+          <div className="stat-card hover-lift card-3d">
+            <div className="flex items-center justify-between mb-6">
+              <div className="feature-icon">
+                <Users className="text-cyan-400" size={32} />
               </div>
             </div>
-            <h3 className="text-2xl font-bold mb-1">
-              {channels.reduce((sum, ch) => sum + (ch.total_raised || 0), 0).toLocaleString()}
+            <h3 className="text-4xl font-bold mb-2 gradient-text">
+              ₹{channels.reduce((sum, ch) => sum + (ch.total_raised || 0), 0).toLocaleString()}
             </h3>
-            <p className="text-gray-600 text-sm">Total Raised (₹)</p>
+            <p className="text-gray-400 text-sm font-medium">Total Raised</p>
           </div>
         </div>
 
         {/* Channels Grid */}
         <div>
-          <h2 className="text-3xl font-bold mb-6">Explore Channels</h2>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-4xl font-bold gradient-text glow-text mb-2">Explore Channels</h2>
+              <p className="text-gray-400">Discover and invest in rising creators</p>
+            </div>
+          </div>
+          
           {loading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+            <div className="text-center py-20">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-500 mx-auto"></div>
+              <p className="text-gray-400 mt-4">Loading channels...</p>
             </div>
           ) : channels.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-600">No channels yet. Be the first to create one!</p>
+            <div className="text-center py-20 glass-effect rounded-3xl">
+              <Sparkles size={64} className="mx-auto mb-4 text-purple-400" />
+              <p className="text-xl text-gray-300">No channels yet. Be the first to create one!</p>
             </div>
           ) : (
-            <div data-testid="channels-grid" className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {channels.map((channel) => (
+            <div data-testid="channels-grid" className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {channels.map((channel, index) => (
                 <div
                   key={channel.id}
                   data-testid={`channel-card-${channel.id}`}
-                  className="channel-card"
+                  className="channel-card group"
                   onClick={() => navigate(`/channel/${channel.id}`)}
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div
-                    className="h-40 gradient-bg-primary flex items-center justify-center"
+                    className="h-48 gradient-bg-primary flex items-center justify-center relative overflow-hidden"
                     style={{
                       backgroundImage: channel.cover_image ? `url(${channel.cover_image})` : undefined,
                       backgroundSize: 'cover',
@@ -184,19 +199,19 @@ function Dashboard({ user, setUser }) {
                     }}
                   >
                     {!channel.cover_image && (
-                      <span className="text-4xl font-bold text-white">{channel.name[0]}</span>
+                      <span className="text-5xl font-bold text-white group-hover:scale-110 transition-transform duration-500">{channel.name[0]}</span>
                     )}
                   </div>
-                  <div className="p-5">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-bold">{channel.name}</h3>
+                  <div className="p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <h3 className="text-2xl font-bold text-white">{channel.name}</h3>
                       <span className="badge badge-creator text-xs">{channel.category}</span>
                     </div>
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{channel.description}</p>
-                    <div className="mb-3">
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-gray-600">Raised</span>
-                        <span className="font-semibold">
+                    <p className="text-gray-400 text-sm mb-6 line-clamp-2">{channel.description}</p>
+                    <div className="mb-4">
+                      <div className="flex justify-between text-sm mb-3">
+                        <span className="text-gray-400">Raised</span>
+                        <span className="font-bold text-white">
                           ₹{channel.total_raised?.toLocaleString()} / ₹{channel.goal_amount?.toLocaleString()}
                         </span>
                       </div>
@@ -207,9 +222,12 @@ function Dashboard({ user, setUser }) {
                         ></div>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600">by {channel.creator_name}</span>
-                      <span className="font-semibold text-purple-600">{channel.equity_percentage}% equity</span>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-400">by {channel.creator_name}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-purple-400">{channel.equity_percentage}% equity</span>
+                        <ArrowRight size={16} className="text-purple-400 group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </div>
                   </div>
                 </div>

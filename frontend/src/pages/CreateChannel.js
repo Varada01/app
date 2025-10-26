@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { authAxios } from '../App';
 import { toast } from 'sonner';
 import { Button } from '../components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Zap, Sparkles, Rocket } from 'lucide-react';
 
 function CreateChannel({ user }) {
   const navigate = useNavigate();
@@ -34,27 +34,38 @@ function CreateChannel({ user }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen animated-bg">
       <nav className="navbar px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center gap-4">
-          <Button data-testid="back-btn" variant="ghost" onClick={() => navigate('/dashboard')} className="flex items-center gap-2">
+          <Button data-testid="back-btn" variant="ghost" onClick={() => navigate('/dashboard')} className="flex items-center gap-2 text-gray-300 hover:text-white">
             <ArrowLeft size={18} />
             Back
           </Button>
-          <span className="text-2xl font-bold gradient-text">Create Channel</span>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg gradient-bg-primary flex items-center justify-center">
+              <Zap className="text-white" size={20} />
+            </div>
+            <span className="text-2xl font-bold gradient-text glow-text">Create Channel</span>
+          </div>
         </div>
       </nav>
 
-      <div className="max-w-3xl mx-auto px-6 py-12">
-        <div className="bg-white rounded-3xl shadow-xl p-8">
-          <h1 className="text-3xl font-bold gradient-text mb-6">Launch Your Channel</h1>
-          <p className="text-gray-600 mb-8">
-            Create a channel, invite collaborators, and get funded by your fans. Let's build something amazing together!
-          </p>
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        <div className="glass-effect rounded-3xl p-10 border border-purple-500/20 shadow-2xl">
+          <div className="mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-effect mb-4">
+              <Sparkles size={18} className="text-purple-400" />
+              <span className="text-sm font-semibold text-gray-300">Launch Your Channel</span>
+            </div>
+            <h1 className="text-4xl font-bold gradient-text glow-text mb-3">Build Something Amazing</h1>
+            <p className="text-gray-300 text-lg">
+              Create a channel, invite collaborators, and get funded by your fans. Let's build together!
+            </p>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-6" data-testid="create-channel-form">
             <div>
-              <label className="block text-sm font-medium mb-2">Channel Name *</label>
+              <label className="block text-sm font-semibold mb-3 text-gray-300">Channel Name *</label>
               <input
                 data-testid="channel-name"
                 type="text"
@@ -66,7 +77,7 @@ function CreateChannel({ user }) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Description *</label>
+              <label className="block text-sm font-semibold mb-3 text-gray-300">Description *</label>
               <textarea
                 data-testid="channel-description"
                 name="description"
@@ -79,7 +90,7 @@ function CreateChannel({ user }) {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Category *</label>
+                <label className="block text-sm font-semibold mb-3 text-gray-300">Category *</label>
                 <select data-testid="channel-category" name="category" required className="input-field">
                   <option value="">Select category</option>
                   <option value="YouTube">YouTube</option>
@@ -94,7 +105,7 @@ function CreateChannel({ user }) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Funding Goal (₹) *</label>
+                <label className="block text-sm font-semibold mb-3 text-gray-300">Funding Goal (₹) *</label>
                 <input
                   data-testid="channel-goal"
                   type="number"
@@ -109,7 +120,7 @@ function CreateChannel({ user }) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Total Equity for Investors (%) *</label>
+              <label className="block text-sm font-semibold mb-3 text-gray-300">Total Equity for Investors (%) *</label>
               <input
                 data-testid="channel-equity"
                 type="number"
@@ -121,13 +132,13 @@ function CreateChannel({ user }) {
                 className="input-field"
                 placeholder="20"
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-400 mt-2">
                 This is the total equity percentage you're offering to all investors combined.
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Cover Image URL (optional)</label>
+              <label className="block text-sm font-semibold mb-3 text-gray-300">Cover Image URL (optional)</label>
               <input
                 data-testid="channel-cover"
                 type="url"
@@ -137,21 +148,30 @@ function CreateChannel({ user }) {
               />
             </div>
 
-            <div className="flex gap-4 pt-4">
+            <div className="flex gap-4 pt-6">
               <Button
                 data-testid="create-channel-submit"
                 type="submit"
                 disabled={loading}
-                className="btn-primary flex-1"
+                className="btn-primary flex-1 py-4 text-lg"
               >
-                {loading ? 'Creating...' : 'Create Channel'}
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Creating...
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                    <Rocket size={20} />
+                    Create Channel
+                  </span>
+                )}
               </Button>
               <Button
                 data-testid="cancel-btn"
                 type="button"
-                variant="outline"
                 onClick={() => navigate('/dashboard')}
-                className="flex-1"
+                className="glass-effect text-white flex-1 py-4 text-lg rounded-full font-semibold hover:bg-white/10 transition-all"
               >
                 Cancel
               </Button>
