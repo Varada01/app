@@ -10,7 +10,7 @@ import MyChannels from './pages/MyChannels';
 import MyInvestments from './pages/MyInvestments';
 import { Toaster } from './components/ui/sonner';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 export const API = `${BACKEND_URL}/api`;
 
 export const authAxios = axios.create({
