@@ -17,3 +17,6 @@ services:
         generateValue: true
       - key: CORS_ORIGINS
         value: "*"
+
+# Note: Frontend must be deployed manually as a Static Site
+# Use this build command: npm install --legacy-peer-deps && npm run build
