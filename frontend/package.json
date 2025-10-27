@@ -56,7 +56,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "react-scripts build",
+    "build:craco": "craco build",
     "test": "craco test"
   },
   "browserslist": {
